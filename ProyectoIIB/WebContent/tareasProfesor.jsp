@@ -38,7 +38,7 @@
 </TABLE>
 	<br>
 	<button type="button">Guardar</button>
-	<button type="reset">Cancelar</button>
+	<button type="reset">Cancelar Entradas</button>
 	<br>
 </center>`	
 <br>
