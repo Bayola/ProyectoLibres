@@ -11,29 +11,38 @@
    <br/>
    <h1>   TAREAS ESTUDIANTE </h1><br/></center>
    <br/>
-       <td><b><i>Deber: </i></b></td>
-       <br/>
-           <td><i>Tomar la informacion de titulo del deber de la bd</i></td>
-           <input type="text" name="tituloTarea">
-   <br/>
-   <br/>
-   <td><i><b>Descripcion: </b></i></td>
-   <br/>
-           <td><i>Tomar la informacion de descripcion de la base de datos</i></td>
-           <input type="text" name="descripcionTarea">
-   <br/>
-   <br/>
-   <td><i><b>Entrega:</b></i></td>
-	<br/>
-	<textarea name="entrega" rows="10" cols="80"></textarea>
-	<br/>
-	<br/><br/>
+   
+ <%! public String obtieneAtributo(HttpServletRequest request, String nombre){
+String valor =	(String) request.getAttribute(nombre); 
+if(valor==null){
+valor="";
+}
+return valor;
+} %>  
+		<form method="post" action="ActualizarEntrega">
+				<td><b><i>Id:		</i></b></td>
+				<td><input type="text" name="id" style="background-color: lightgray;" value="<%=obtieneAtributo(request, "valId")%>"/></td>
+				</tr></div><br/>
+				<div><tr>
+				<td><b><i>Titulo:	</i></b></td>
+				<td><input type="text" name="titulo" style="background-color: lightgray;" value="<%=obtieneAtributo(request, "valTitulo")%>"/></td>
+				</tr></div><br/>
+				<div><tr>
+				<td><b><i>Descripcion:</i></b></td>
+				<td><input type="text" name="descripcion" style="background-color: lightgray;" value="<%=obtieneAtributo(request, "valDescripcion")%>"/></td>
+				</tr></div><br/>
+				<br><tr>
+				<td><b><i>Entrega:</i></b></td>
+				<td><input type="text" name="entrega" size="150" value="<%=obtieneAtributo(request, "valEntrega")%>"/></td>
+				</tr></div>
+				<br/>
+				<br><tr>
+				<td><center><input type="submit" value="Guardar"/></center></td>
+				</tr>				
+		</form>
+   <br/>	
 	
 	
-	<center>
-	<button type="button">Guardar</button>
-	<button type="reset">Cancelar</button>
-	<br>
 </center>`	
 <br>
 </body>
