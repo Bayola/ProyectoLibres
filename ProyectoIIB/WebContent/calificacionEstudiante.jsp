@@ -40,7 +40,12 @@ for(Tarea t: tareas){
 	<input type="text" name="notafinal" value="<%=cal%>">
 	<br/>
 	<br>
-<a href="ListarTareasEstudiante">Regresar a Tareas</a>
+<table border="3" style="color: gray"><tr>
+<form method="get" action="ListarCalificacionesEstudiante">
+		<input type="submit" value="Salir"/>
+</form>
+</tr></table>
+
 </center>
  <br/>
    <br/>

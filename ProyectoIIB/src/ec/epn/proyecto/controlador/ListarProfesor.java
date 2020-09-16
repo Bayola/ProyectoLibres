@@ -1,9 +1,11 @@
 package ec.epn.proyecto.controlador;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,22 +13,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
-import ec.epn.proyecto.modelo.Tarea;
-import javafx.scene.control.Tab;
+import ec.epn.proyecto.modelo.Profesor;
 
 /**
- * Servlet implementation class CrearTarea
+ * Servlet implementation class ListarProfesor
  */
 @Transactional
-@WebServlet("/CrearTarea")
-public class CrearTarea extends HttpServlet {
+@WebServlet("/ListarProfesor")
+public class ListarProfesor extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@PersistenceContext(unitName = "adminlibrosPU")
-	private EntityManager em;   
+	private EntityManager em;  
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CrearTarea() {
+    public ListarProfesor() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,28 +36,12 @@ public class CrearTarea extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String titulo = request.getParameter("titulo");
-		String descripcion = request.getParameter("descripcion");
+		Query q= em.createQuery("select p from Profesor as p", Profesor.class);
+		List<Profesor> profesor=q.getResultList();
 		
+		request.setAttribute("profesor", profesor);
+		request.getRequestDispatcher("listarProfesor.jsp").forward(request, response);
 
-		if (titulo.equals("") || descripcion.equals("")) {
-			request.setAttribute("valTitulo", titulo);
-			request.setAttribute("valDescripcion", descripcion);
-			request.setAttribute("valError", "Ingrese datos correctos");
-
-			request.getRequestDispatcher("crearTarea.jsp").forward(request, response);
-		} else {
-			Tarea t = new Tarea();
-			t.setTitulo(titulo);
-			t.setDescripcion(descripcion);
-			t.setCalificacion(0);
-			t.setEntregado(false);
-			t.setEntrega(null);
-			
-			em.persist(t);
-			
-			request.getRequestDispatcher("ListarTareasProfesor").forward(request, response);
-		}
 	}
 
 	/**

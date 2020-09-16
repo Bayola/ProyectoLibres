@@ -11,22 +11,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
-import ec.epn.proyecto.modelo.Tarea;
-import javafx.scene.control.Tab;
+import ec.epn.proyecto.modelo.Estudiante;
 
 /**
- * Servlet implementation class CrearTarea
+ * Servlet implementation class EliminarEstudiante
  */
 @Transactional
-@WebServlet("/CrearTarea")
-public class CrearTarea extends HttpServlet {
+@WebServlet("/EliminarEstudiante")
+public class EliminarEstudiante extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@PersistenceContext(unitName = "adminlibrosPU")
-	private EntityManager em;   
+	private EntityManager em;
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CrearTarea() {
+    public EliminarEstudiante() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,28 +34,11 @@ public class CrearTarea extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String titulo = request.getParameter("titulo");
-		String descripcion = request.getParameter("descripcion");
+		String idStr= request.getParameter("id");
+		Estudiante e = em.find(Estudiante.class, new Integer(idStr));		
+			em.remove(e);
 		
-
-		if (titulo.equals("") || descripcion.equals("")) {
-			request.setAttribute("valTitulo", titulo);
-			request.setAttribute("valDescripcion", descripcion);
-			request.setAttribute("valError", "Ingrese datos correctos");
-
-			request.getRequestDispatcher("crearTarea.jsp").forward(request, response);
-		} else {
-			Tarea t = new Tarea();
-			t.setTitulo(titulo);
-			t.setDescripcion(descripcion);
-			t.setCalificacion(0);
-			t.setEntregado(false);
-			t.setEntrega(null);
-			
-			em.persist(t);
-			
-			request.getRequestDispatcher("ListarTareasProfesor").forward(request, response);
-		}
+		request.getRequestDispatcher("ListarEstudiantes").forward(request, response);
 	}
 
 	/**

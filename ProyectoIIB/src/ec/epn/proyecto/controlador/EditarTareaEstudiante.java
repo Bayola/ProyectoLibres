@@ -12,52 +12,40 @@ import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
 import ec.epn.proyecto.modelo.Tarea;
-import javafx.scene.control.Tab;
 
 /**
- * Servlet implementation class CrearTarea
+ * Servlet implementation class tareasEstudiante
  */
 @Transactional
-@WebServlet("/CrearTarea")
-public class CrearTarea extends HttpServlet {
+@WebServlet("/EditarTareaEstudiante")
+public class EditarTareaEstudiante extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@PersistenceContext(unitName = "adminlibrosPU")
-	private EntityManager em;   
+	private EntityManager em;
+
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CrearTarea() {
+    public EditarTareaEstudiante() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String titulo = request.getParameter("titulo");
-		String descripcion = request.getParameter("descripcion");
+		String idStr= request.getParameter("id");
+		Tarea t= em.find(Tarea.class, new Integer(idStr));
 		
-
-		if (titulo.equals("") || descripcion.equals("")) {
-			request.setAttribute("valTitulo", titulo);
-			request.setAttribute("valDescripcion", descripcion);
-			request.setAttribute("valError", "Ingrese datos correctos");
-
-			request.getRequestDispatcher("crearTarea.jsp").forward(request, response);
-		} else {
-			Tarea t = new Tarea();
-			t.setTitulo(titulo);
-			t.setDescripcion(descripcion);
-			t.setCalificacion(0);
-			t.setEntregado(false);
-			t.setEntrega(null);
-			
-			em.persist(t);
-			
-			request.getRequestDispatcher("ListarTareasProfesor").forward(request, response);
-		}
-	}
+		request.setAttribute("valId", idStr);
+		request.setAttribute("valTitulo", t.getTitulo());
+		request.setAttribute("valDescripcion", t.getDescripcion());
+		request.setAttribute("valEntrega", t.getEntrega());
+		request.setAttribute("valEntregado", t.getEntregado());
+		request.setAttribute("valCalificacion", t.getCalificacion());
+		
+		em.persist(t);
+		request.getRequestDispatcher("editarTareaEstudiante.jsp").forward(request, response);	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

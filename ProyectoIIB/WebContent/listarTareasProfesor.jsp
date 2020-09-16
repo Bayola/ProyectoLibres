@@ -9,22 +9,22 @@
 <meta charset="ISO-8859-1">
 <title>Listar tareas</title>
 </head>
+<body>
 <body style= "background-color:lightgray;"><center>
 <img src="img/Cabecera.jpg" />
 
 <h1> Listado Tareas </h1>
-<h2> Modo Estudiante </h2>
-
-
+<a href="crearTarea.jsp">Nueva Tarea</a>
+<br> 
+<br>
 <table border="1">
 <tr>
 <th>   ID   </th>
 <th>   Titulo   </th>
 <th>   Descripcion   </th>
-<th>   Entrega   </th>
 <th>   Calificacion   </th>
-<th>   Entregado   </th>
-<th>   Realizar   </th>
+<th>   Calificar   </th>
+<th>   Eliminar   </th>
 </tr>
 
 <%
@@ -38,25 +38,16 @@ for(Tarea t: tareas){
 <td><%=t.getId()%></td>
 <td><%=t.getTitulo() %></td>
 <td><%=t.getDescripcion()%></td>
-<td><%=t.getEntrega()%> </td>
-<td><%=t.getCalificacion()%> </td>
-<td><%=t.getEntregado()%> </td>
-<td><a href="EditarTareaEstudiante?id=<%=t.getId()%>">Realizar Entrega</td>
+<td><%=t.getCalificacion()%></td>
+<td><a href="EditarTareaProfesor?id=<%=t.getId()%>">Calificar</td>
+<td><a href="EliminarTarea?id=<%=t.getId()%>">Eliminar</td>
 </tr>
 <%} %>
 </table>
-
-
+<br>
 <br>
 <table border="3" style="color: gray"><tr>
-<%Tarea t=new Tarea(); %>
-<td><a href="ListarCalificacionesEstudiante?id=<%=t.getId()%>">Ver Calificaciones</a></td>
+<td><a href="ListarTareasProfesor">Ir a Listado de Tareas</a></td>
 </tr></table>
 </body>
-<br>
-<br>
-<br>
-<br>
-<br>
-<img src="img/piepagina.jpeg" />
 </html>

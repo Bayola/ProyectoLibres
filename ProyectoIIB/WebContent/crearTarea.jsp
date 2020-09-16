@@ -29,14 +29,18 @@ return valor;
 				<td>Descripcion</td>
 				<td><input type="text" name="descripcion" value="<%=obtieneAtributo(request, "valDescripcion")%>"/></td>
 				</tr>
-				<tr>
+				<tr><br>
 				<td><input type="submit" value="Guardar"/></td>
 				<td><button type="reset">Vaciar campos</button>
 				</tr>
 		</form>
 	</table>
 	<br>
-
+	<br>
+	<br>
+<table border="3" style="color: gray"><tr>
+<td><a href="ListarTareasProfesor">Ir a Listado de Tareas</a></td>
+</tr></table>
 	<br>
 	<br>
 	<br>

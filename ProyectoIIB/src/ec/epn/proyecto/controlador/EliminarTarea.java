@@ -41,7 +41,7 @@ public class EliminarTarea extends HttpServlet {
 		
 			em.remove(t);
 		
-		request.getRequestDispatcher("ListarTareas").forward(request, response);
+		request.getRequestDispatcher("ListarTareasProfesor").forward(request, response);
 		
 	}
 
