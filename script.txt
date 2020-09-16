@@ -1,0 +1,100 @@
+-- Database: pruebas
+
+-- DROP DATABASE pruebas;
+
+CREATE DATABASE pruebas
+    WITH 
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'Spanish_Spain.1252'
+    LC_CTYPE = 'Spanish_Spain.1252'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1;
+
+-- Table: public.administrador
+
+-- DROP TABLE public.administrador;
+
+CREATE TABLE public.administrador
+(
+    id integer NOT NULL DEFAULT nextval('administrador_id_seq'::regclass),
+    nombre character varying(30) COLLATE pg_catalog."default",
+    cedula character varying(10) COLLATE pg_catalog."default",
+    password character varying(30) COLLATE pg_catalog."default",
+    CONSTRAINT administrador_pkey PRIMARY KEY (id)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public.administrador
+    OWNER to postgres;
+
+-- Table: public.estudiante
+
+-- DROP TABLE public.estudiante;
+
+CREATE TABLE public.estudiante
+(
+    id integer NOT NULL DEFAULT nextval('estudiante_id_seq'::regclass),
+    nombre character varying(30) COLLATE pg_catalog."default",
+    apellido character varying(30) COLLATE pg_catalog."default",
+    cedula character varying(10) COLLATE pg_catalog."default",
+    telefono character varying(10) COLLATE pg_catalog."default",
+    correo character varying(50) COLLATE pg_catalog."default",
+    password character varying(30) COLLATE pg_catalog."default",
+    CONSTRAINT estudiante_pkey PRIMARY KEY (id)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public.estudiante
+    OWNER to postgres;
+
+-- Table: public.profesor
+
+-- DROP TABLE public.profesor;
+
+CREATE TABLE public.profesor
+(
+    id integer NOT NULL DEFAULT nextval('profesor_id_seq'::regclass),
+    nombre character varying(30) COLLATE pg_catalog."default",
+    apellido character varying(30) COLLATE pg_catalog."default",
+    cedula character varying(10) COLLATE pg_catalog."default",
+    telefono character varying(10) COLLATE pg_catalog."default",
+    correo character varying(50) COLLATE pg_catalog."default",
+    password character varying(30) COLLATE pg_catalog."default",
+    CONSTRAINT profesor_pkey PRIMARY KEY (id)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public.profesor
+    OWNER to postgres;
+
+-- Table: public.tarea
+
+-- DROP TABLE public.tarea;
+
+CREATE TABLE public.tarea
+(
+    id integer NOT NULL DEFAULT nextval('tarea_id_seq'::regclass),
+    titulo character varying(25) COLLATE pg_catalog."default" NOT NULL,
+    descripcion character varying(200) COLLATE pg_catalog."default" NOT NULL,
+    calificacion integer,
+    entregado boolean,
+    entrega character varying(1500) COLLATE pg_catalog."default",
+    CONSTRAINT tarea_pkey PRIMARY KEY (id)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public.tarea
+    OWNER to postgres;
