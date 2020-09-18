@@ -9,12 +9,16 @@
 <meta charset="ISO-8859-1">
 <title>Listar tareas</title>
 </head>
-<body style= "background-color:lightgray;"><center>
-<img src="img/Cabecera.jpg" />
+<body style= "background-color: #e7e7f3;"><center>
+<img src="img/Cabecera.png" width="800px" height="150px"/> <br />
 
-<h1> Listado Tareas </h1>
-<h2> Modo Estudiante </h2>
-
+<div style="color: #8d0303;">
+		<h1>LISTA DE TAREAS</h1>
+		<hr>
+		<h2> Modo Estudiante </h2>
+		<hr>
+		</br>
+	</div>
 
 <table border="1">
 <tr>
@@ -48,15 +52,24 @@ for(Tarea t: tareas){
 
 
 <br>
-<table border="3" style="color: gray"><tr>
 <%Tarea t=new Tarea(); %>
-<td><a href="ListarCalificacionesEstudiante?id=<%=t.getId()%>">Ver Calificaciones</a></td>
-</tr></table>
+<form style="color: blue" action="ListarCalificacionesEstudiante?id=<%=t.getId()%>" method="post">
+<input type="submit" value="Ver calificaciones">
+</form>
+
 </body>
 <br>
 <br>
+<div>
+		<form method="get" action="cursos.jsp">
+			<input type="submit" value="Regresar" />
+		</form>
+</div>
 <br>
 <br>
 <br>
-<img src="img/piepagina.jpeg" />
+<footer class="footer">
+		<img src="img/piePag.png" width="1000px" height="150px"/>
+	</footer>
+	</body>
 </html>

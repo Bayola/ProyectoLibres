@@ -9,10 +9,10 @@
 <meta charset="ISO-8859-1">
 <meta charset="UTF-8">
 	<title>Registro </title>
-	 <center><img src="img/Cabecera.jpg" />
+	 <center><img src="img/Cabecera.png" width="800px" height="150px"/> 
 	 <br/>	
 </head>
-<body style= "background-color:lightgray;">
+<body style= "background-color: #e7e7f3;">
 <div style = "color:#8d0303;">
 <h1> REGISTRO DATOS </h1><hr></br>
 </div>
@@ -26,7 +26,7 @@ if(valor==null){
 <p style="color:red"><%=obtieneAtributo(request, "valError")%></p>
 
 <!-- Datos -->
-<div style="border: 1px solid black; margin-left: 450px; margin-right: 450px; padding: 20px;">
+<div style="border: 1px solid #8d0303; margin-left: 300px; margin-right: 300px; padding: 20px;">
 
 <form method="post" action="RegistrarProfesor">
 <%System.out.print(obtieneAtributo(request,"valId" )); %>
@@ -73,8 +73,8 @@ if(valor==null){
 </form>
 <br>
 <div>
-<form method="get" action="Login">
-		<input type="submit" value="Salir"/>
+<form method="post" action="menuAdministrador.jsp">
+		<input type="submit" value="Regresar"/>
 </form>
 </div>
 
@@ -83,8 +83,8 @@ if(valor==null){
    <div>
         <!-- Footer -->
         <footer class="footer">
-			<img src="img/piepagina.jpeg" />
-        </footer></center>
+			<img src="img/piePag.png" width="1000px" height="150px" />
+		</footer>></center>
 </div>
 </body>
 

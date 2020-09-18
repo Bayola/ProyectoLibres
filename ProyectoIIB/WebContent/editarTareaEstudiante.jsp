@@ -6,12 +6,14 @@
 <meta charset="ISO-8859-1">
 <title>tareasEstudiante</title>
 </head>
-<body style= "background-color:lightgray;"><center>
-   <img src="img/Cabecera.jpg" />
+<body style= "background-color: #e7e7f3;"><center>
+   <img src="img/Cabecera.png" width="800px" height="150px"/> <br />
+   <div style="color: #8d0303;">
+   <h1>   TAREAS ESTUDIANTE </h1>
+   <hr>
+   </div></center>
    <br/>
-   <h1>   TAREAS ESTUDIANTE </h1><br/></center>
    <br/>
-   
  <%! public String obtieneAtributo(HttpServletRequest request, String nombre){
 String valor =	(String) request.getAttribute(nombre); 
 if(valor==null){
@@ -46,5 +48,5 @@ return valor;
 </center>`	
 <br>
 </body>
- <img src="img/piepagina.jpeg" />
+ <img src="img/piePag.png" width="1000px" height="150px"/>
 </html>

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@page import="java.util.List"%>
-<%@page import="ec.epn.proyecto.modelo.Estudiante"%>
+<%@page import="ec.epn.proyecto.modelo.*"%>
 
 <!DOCTYPE html>
 <html>
@@ -10,88 +10,60 @@
 <meta charset="UTF-8">
 <title>Login</title>
 <center>
-	<img src="img/Cabecera.jpg" /> <br />
+	<img src="img/Cabecera.png" width="800px" height="150px"/> <br/>
 </head>
 <body style="background-color: lightgray;">
 	<div style="color: #8d0303;">
-		<h1>Usuario</h1>
+	
+		<%
+			String nombre = request.getParameter("nombre");
+		request.setAttribute("nombre", nombre);
+		%>
+		
+		<h2>
+			<font color= #8d0303><%=nombre%></font>
+		</h2>
 		<hr>
 		</br>
 	</div>
 
-	<%!public String obtieneAtributo(HttpServletRequest request, String nombre) {
-		String valor = (String) request.getAttribute(nombre);
-		if (valor == null) {
-			valor = "";
-		}
-		return valor;
-	}%>
-	<p style="color: red"><%=obtieneAtributo(request, "valError")%></p>
-
 	<!-- Datos -->
-	<div
-		style="border: 1px solid black; margin-left: 450px; margin-right: 450px; padding: 40px;">
+	<div style="border: 1px solid #8d0303; margin-left: 300px; margin-right: 300px; padding: 40px;">
 
 		<form method="post" action="Login">
 			<div>
-				<label>Modo</label> <select name="Modalidad">
-					<option>Seleccione una opción ...</option>
-					<option value="Estudiante">Estudiante</option>
-					<option value="Profesor">Profesor</option>
-					<option value="Administrador">Administrador</option>
-				</select>
-			</div>
-			</br>
-			<div>
-				<label>Número de Cédula</label> <input type="text" name="cedula"
-					value="<%=obtieneAtributo(request, "valCedula")%>"
-					placeholder="Escribe tu cedula" /> <span id="error_nombre"></span>
+			<label>Tipo de Acceso</label>
+			<input style="background: lightgray" type="text" name="tipo" value=<%=nombre%>> </input>
 			</div>
 			<div>&nbsp;</div>
 			<div>
-				<label>Contraseña</label> <input type="text" name="contraseña"
-					value="<%=obtieneAtributo(request, "valContraseña")%>"
-					placeholder="Escribe tu contraseña" /> <span id="error_contraseña"></span>
+				<label>Número de Cédula</label> 
+				<input type="text" name="cedula" placeholder="Escribe tu cedula" /> 
 			</div>
 			<div>&nbsp;</div>
-
-			<% 
-			List<Estudiante> estudiante;
-			estudiante = (List<Estudiante>) request.getAttribute("estudiante");
-			for (Estudiante e : estudiante) {
-				String nombreEst = e.getNombre();
-				String pwdEst = e.getPassword();
-			}
-/* 			List<Profesor> profesor;
-			profesor = (List<Profesor>) request.getAttribute("profesor");
-			for (Profesor p : profesor) {
-				String nombrePro = p.getNombre();
-				String pwdPro = p.getPassword();
-			}
-			List<Administrador> administrador;
-			administrador = (List<Administrador>) request.getAttribute("administrador");
-			for (Administrador a : administrador) {
-				String nombreAdm = a.getNombre();
-				String pwdAdm = a.getPassword();
-			}
- */			%>
+			<div>
+				<label>Contraseña</label> 
+				<input type="text" name="password" placeholder="Escribe tu contraseña" />
+			</div>
+			<div>&nbsp;</div>
 
 			<div>
 				<input type="submit" value="Ingresar" />
 			</div>
-			<br> <br>
-			<div>
-				¿Eres un nuevo Estudiante? <a href="Registro.jsp"> Registrate</a>
-			</div>
+			<br>
 		</form>
+		<form method="post" action="modo.jsp">
+				<input type="submit" name="nombre" value="Salir" size="80"/>
+			</form>
 	</div>
+	
 	</br>
+	<div>
+		<!-- Footer -->
+		<footer class="footer">
+			<img src="img/piePag.png" width="1000px" height="150px"/>
+		</footer>
+		</center>
+	</div>
 </body>
-<div>
-	<!-- Footer -->
-	<footer class="footer">
-		<img src="img/piepagina.jpeg" />
-	</footer>
-	</center>
-</div>
 </html>

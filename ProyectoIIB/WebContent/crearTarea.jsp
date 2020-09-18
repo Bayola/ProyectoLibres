@@ -6,8 +6,9 @@
 <meta charset="ISO-8859-1">
 <title>CrearTarea</title>
 </head>
-<body style= "background-color:lightgray;"><center>
-<img src="img/Cabecera.jpg" />
+<body style= "background-color: #e7e7f3;"><center>
+<img src="img/Cabecera.png" width="800px" height="150px"/> <br />
+
 <h1> Crear Tarea </h1>
 
 <%! public String obtieneAtributo(HttpServletRequest request, String nombre){
@@ -46,5 +47,5 @@ return valor;
 	<br>
 	<br>
 </body>
- <img src="img/piepagina.jpeg" />
+<img src="img/piePag.png" width="1000px" height="150px"/>
 </html>

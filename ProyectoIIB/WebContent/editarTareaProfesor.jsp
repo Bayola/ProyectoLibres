@@ -10,9 +10,13 @@
 <meta charset="ISO-8859-1">
 <title>Calificar</title>
 </head>
-<body style= "background-color:lightgray;"><center>
-<img src="img/Cabecera.jpg" />
-<h1> Calificar </h1>
+<body style= "background-color: #e7e7f3;"><center>
+<img src="img/Cabecera.png" width="800px" height="150px"/> <br />
+<div style="color: #8d0303;">
+		<h1>CALIFICAR</h1>
+		<hr>
+		</br>
+	</div>
 <%! public String obtieneAtributo(HttpServletRequest request, String nombre){
 String valor =	(String) request.getAttribute(nombre); 
 if(valor==null){
@@ -57,5 +61,7 @@ valor="no entregado";
 <br>
 <br>
 </body>
-<img src="img/piepagina.jpeg" />
+<footer class="footer">
+		<img src="img/piePag.png" width="1000px" height="150px"/>
+	</footer>
 </html>

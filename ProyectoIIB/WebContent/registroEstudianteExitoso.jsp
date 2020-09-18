@@ -6,10 +6,10 @@
 <meta charset="ISO-8859-1">
 <meta charset="UTF-8">
 	<title>Registro </title>
-	 <center><img src="img/Cabecera.jpg" />
+	 <center><img src="img/Cabecera.png" width="800px" height="150px"/>
 	 <br/>	
 </head>
-<body style= "background-color:lightgray;">
+<body style= "background-color: #e7e7f3;">
 <div style = "color:#8d0303;">
 <h1> REGISTRO EXITOSO </h1><hr></br>
 </div>
@@ -18,7 +18,7 @@
 <br>
 <br>
 <br>
-<form method="get" action="Login">
+<form method="get" action="modo.jsp">
 		<input type="submit" value="Volver al Inicio"/>
 	</form>	
 </div>
@@ -35,8 +35,8 @@
 <div>
         <!-- Footer -->
         <footer class="footer">
-			<img src="img/piepagina.jpeg" />
-        </footer></center>
+			<img src="img/piePag.png" width="1000px" height="150px" />
+		</footer></center>
 </div>
 </body>
 </html>

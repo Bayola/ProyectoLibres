@@ -10,11 +10,19 @@
 <title>Listar tareas</title>
 </head>
 <body>
-<body style= "background-color:lightgray;"><center>
-<img src="img/Cabecera.jpg" />
+<body style= "background-color: #e7e7f3;"><center>
+<img src="img/Cabecera.png" width="800px" height="150px"/> <br />
 
-<h1> Listado Tareas </h1>
-<a href="crearTarea.jsp">Nueva Tarea</a>
+<div style="color: #8d0303;">
+		<h1>LISTA DE TAREAS</h1>
+		<hr>
+		</br>
+	</div>
+<form method="post" action="crearTarea.jsp">
+			<img src="img/regicon.png" width="40px" height="40px" />
+			<input type="submit" name="nombre" value="Nueva Tarea" size="80" />
+</form>
+
 <br> 
 <br>
 <table border="1">
@@ -45,9 +53,19 @@ for(Tarea t: tareas){
 <%} %>
 </table>
 <br>
+<form method="post" action="menuProfesor.jsp">
+			<input type="submit" value="Regresar" />
+		</form>
+	</div>
+	<br></br>
+	<div>
+		<form method="get" action="modo.jsp">
+			<input type="submit" value="Salir" />
+		</form>
+	</div>
 <br>
-<table border="3" style="color: gray"><tr>
-<td><a href="ListarTareasProfesor">Ir a Listado de Tareas</a></td>
-</tr></table>
+<footer class="footer">
+		<img src="img/piePag.png" width="1000px" height="150px"/>
+	</footer>
 </body>
 </html>

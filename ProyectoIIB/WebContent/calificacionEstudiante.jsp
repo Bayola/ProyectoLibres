@@ -1,14 +1,17 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@page import="java.util.List" %>
 <%@page import="ec.epn.proyecto.modelo.Tarea" %>
 <meta charset="ISO-8859-1">
-<title>calificacionEstudiantes</title>
+<title>calificacion Estudiantes</title>
 </head>
-<body style= "background-color:lightgray;"><center>
-   <img src="img/Cabecera.jpg" />
-   <br/>
-   <h1>   CALIFICACION ESTUDIANTES </h1><br/></center>
+<body style= "background-color:#e7e7f3;"><center>
+   <img src="img/Cabecera.png" width="800px" height="150px"/> <br/>
+   <div style="color: #8d0303;">
+   <h1>   CALIFICACION ESTUDIANTES </h1><hr><br/>
+   </div>
+   </center>
    <br/>
    <br/>
    <br/>
@@ -20,11 +23,13 @@
 	<%
 List<Tarea> tareas;
 tareas= (List<Tarea>)request.getAttribute("tareas");
+DecimalFormat df = new DecimalFormat("0.00"); 
+
 for(Tarea t: tareas){
-	
+	double j=t.getCalificacion()*.1;	
 %>
 	<TR>
-		<TD><%=t.getTitulo() %></TD> <TD><%=0.10%></TD> <TD><%=t.getCalificacion() %></TD> <TD><%=t.getCalificacion()*0.10%></TD> 
+		<TD><%=t.getTitulo() %></TD> <TD><%=0.10%></TD> <TD><%=t.getCalificacion() %></TD> <TD><%=df.format(j) %></TD> 
 	</TR>
 	<%} %>
 </TABLE>
@@ -33,18 +38,25 @@ for(Tarea t: tareas){
 <td><i><b>Nota Final:</b></i></td>
 	<br/>
 	<%tareas= (List<Tarea>)request.getAttribute("tareas");
-	double cal=0;	
-	cal=(tareas.get(0).getCalificacion()+tareas.get(1).getCalificacion()+tareas.get(2).getCalificacion()+tareas.get(3).getCalificacion()+
-			tareas.get(4).getCalificacion()+tareas.get(5).getCalificacion())*0.1;
+	
+	int suma=0;
+	for(int i=0;i<tareas.size();i++){
+	int val = tareas.get(i).getCalificacion();
+	suma += val;
+	}
+
 	%>
-	<input type="text" name="notafinal" value="<%=cal%>">
+	<input type="text" name="notafinal" value="<%=df.format(suma*.1)%>">
 	<br/>
 	<br>
-<table border="3" style="color: gray"><tr>
-<form method="get" action="ListarCalificacionesEstudiante">
+<div><form method="get" action="ListarTareasEstudiante">
+		<input type="submit" value="Regresar"/>
+</form></div>
+
+<div><form method="get" action="modo.jsp">
 		<input type="submit" value="Salir"/>
-</form>
-</tr></table>
+</form></div>
+
 
 </center>
  <br/>
@@ -52,5 +64,5 @@ for(Tarea t: tareas){
    <br/>	
 <br>
 </body>
- <img src="img/piepagina.jpeg" />
+ <img src="img/piePag.png" width="1000px" height="150px"/>
 </html>

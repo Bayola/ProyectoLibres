@@ -8,10 +8,9 @@
 <meta charset="ISO-8859-1">
 <meta charset="UTF-8">
 	<title>Lista de Profesores </title>
-	 <center><img src="img/Cabecera.jpg" />
-	 <br/>	
+	 <center><img src="img/Cabecera.png" width="800px" height="150px"/> <br />
 </head>
-<body style= "background-color:lightgray;">
+<body style= "background-color: #e7e7f3;">
 <div style = "color:#8d0303;">
 <h1> LISTADO DE PROFESORES </h1><hr></br>
 </div>
@@ -37,19 +36,29 @@ for(Profesor e: profesor){ %>
 <td><%=e.getCedula() %></td>
 <td><%=e.getTelefono() %></td>
 <td><%=e.getCorreo() %></td>
-<td><a href="EliminarEstudiante?id=<%=e.getId()%>">Eliminar</td>
+<td><a href="EditarProfesor?id=<%=e.getId()%>">Editar</td>
+<td><a href="EliminarProfesor?id=<%=e.getId()%>">Eliminar</td>
 </tr>
 <%} %>
 </table>
-<form method="get" action="Login">
+<br/>
+<br/>
+<form method="post" action="menuAdministrador.jsp">
+		<input type="submit" value="Regresar"/>
+	</form>	
+<br/>
+<form method="get" action="modo.jsp">
 		<input type="submit" value="Salir"/>
 	</form>	
-</br>
+<br/>
+<br/>
+<br/>
+<br/>
    <div>
         <!-- Footer -->
         <footer class="footer">
-			<img src="img/piepagina.jpeg" />
-        </footer></center>
+		<img src="img/piePag.png" width="1000px" height="150px"/>
+	</footer></center>
     </div>
 </body>
 </html>
