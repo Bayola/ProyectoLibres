@@ -13,58 +13,39 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
-import ec.epn.proyecto.modelo.Tarea;
+import ec.epn.proyecto.modelo.Recurso;
 
 /**
- *  Implementation de Servlet class EliminarTarea
- *  @version 1.0, 14/09/2020
- * @author Gabby
- * 
+ * Servlet implementation class EliminarTarea
  */
 @Transactional
-@WebServlet("/EliminarTarea")
-public class EliminarTarea extends HttpServlet {
+@WebServlet("/EliminarRecurso")
+public class EliminarRecurso extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	/**
-	 * Se indica el nombre de la unidad de persistencia en la que se 
-	 * especifican los parámetros de configuración de la conexión con la base de datos
-	 * Notese que se ha reutilizado el proyecto de administracion de libros
-	 */
 	@PersistenceContext(unitName = "adminlibrosPU")
 	private EntityManager em;
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EliminarTarea() {
+    public EliminarRecurso() {
         super();
         // TODO Auto-generated constructor stub
     }
 
 	/**
-	 * Se define el método get para que se permita eliminar los datos de la servlet anterior obtenidos como parámetros
-	 * y eliminarlos por medio del id
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/**
-		 * Se obtiene el parametro id, con el fin de realizar una busqueda por id en la base de datos
-		 * especificamente en la tabla tarea
-		 * */
 		String idStr= request.getParameter("id");
-		Tarea t= em.find(Tarea.class, new Integer(idStr));
-		/**
-		 * Se procede a eliminar el objeto tarea cuyo indice es el obtenido como parametro desde la servlet ListarTareasEstudiante
-		 */
+		Recurso t= em.find(Recurso.class, new Integer(idStr));
+		
 			em.remove(t);
-			/**
-			 * Se redirige hacia la Servlet ListarTareasProfesor
-			 */
-		request.getRequestDispatcher("ListarTareasProfesor").forward(request, response);
+		
+		request.getRequestDispatcher("ListarRecurso").forward(request, response);
 		
 	}
 
 	/**
-	 * Se define el método post referenciando al método Get, lo que en otras palabras significa que realizan lo mismo los dos métodos.
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

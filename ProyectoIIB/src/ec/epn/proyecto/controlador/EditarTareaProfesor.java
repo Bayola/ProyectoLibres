@@ -19,13 +19,20 @@ import javax.transaction.Transactional;
 import ec.epn.proyecto.modelo.Tarea;
 
 /**
- * Servlet implementation class EliminarTarea
+ * Implementacion de Servlet class EditarTareaProfesor
+ * @version 1.0, 14/09/2020
+ * @author Gabby
+ * 
  */
 @Transactional
 @WebServlet("/EditarTareaProfesor")
 public class EditarTareaProfesor extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	/**
+	 * Se indica el nombre de la unidad de persistencia en la que se 
+	 * especifican los parámetros de configuración de la conexión con la base de datos
+	 * Notese que se ha reutilizado el proyecto de administracion de libros
+	 */   
 	@PersistenceContext(unitName = "adminlibrosPU")
 	private EntityManager em;
     /**
@@ -36,12 +43,22 @@ public class EditarTareaProfesor extends HttpServlet {
     }
 
 	/**
+	 * Se define el método get para que se permita obtener los datos de la servlet ListarTareasProfesor cuyo id y otros datos se reciben como parámetros
+	 * editarlos y enviarlos hacia la nueva jsp como Atributos.
 	 * @see HttpServlet#doGet(HzttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		/**
+		 * Se obtiene el parametro id, con el fin de realizar una busqueda por id en la base de datos
+		 * especificamente en la tabla tarea
+		 * */
 		String idStr= request.getParameter("id");
 		Tarea t= em.find(Tarea.class, new Integer(idStr));
 		//System.out.println("********************************************************"+t.getCalificacion());
+		/**
+		 * Se procede a enviar los valores como atributos hacia la base de datos
+		 * siguiendo el modelo de establecido en Tarea.class 
+		 */
 		
 		request.setAttribute("valId", idStr);
 		request.setAttribute("valTitulo", t.getTitulo());
@@ -53,6 +70,7 @@ public class EditarTareaProfesor extends HttpServlet {
 	}
 
 	/**
+	 * Se define el método post referenciando al método Get, lo que en otras palabras significa que realizan lo mismo los dos métodos. 
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

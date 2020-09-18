@@ -16,13 +16,20 @@ import javax.transaction.Transactional;
 import ec.epn.proyecto.modelo.Tarea;
 
 /**
- * Servlet implementation class ListarLibros
+ * Implementacion de la Servlet class ListarTareasEstudiante
+ * @version 1.0, 14/09/2020
+ * @author Gabby
+ * 
  */
 @Transactional
 @WebServlet("/ListarTareasEstudiante")
 public class ListarTareasEstudiante extends HttpServlet {
 	private static final long serialVersionUID = 1L;
- 
+	/**
+	 * Se indica el nombre de la unidad de persistencia en la que se 
+	 * especifican los parámetros de configuración de la conexión con la base de datos
+	 * Notese que se ha reutilizado el proyecto de administracion de libros
+	 */
 	@PersistenceContext(unitName = "adminlibrosPU")
 	private EntityManager em;
     /**
@@ -33,12 +40,18 @@ public class ListarTareasEstudiante extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	/**
+    /**
+	 * Se define el método get para que se permita obtener los datos de la servlet EditarTareaEstudiante cuyo id y demás datos se reciben como parámetros
+	 * editarlos y enviarlos hacia la base de datos, posteriromente de redirige hacia la Servlet ListarTareasEstudiante.
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	 */	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		/**
+		 * Se define el método get para que se permita obtener los datos de la servlet EditarTareaEstudiante cuyo id y demás datos se reciben como parámetros
+		 * editarlos y enviarlos hacia la base de datos, posteriromente de redirige hacia la Servlet ListarTareasEstudiante.
+		 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+		 */	
 		Query q= em.createQuery("select t from Tarea as t", Tarea.class);
-		//System.out.println("*****************************************"+q);
 		List<Tarea> tareas=q.getResultList();
 		
 		request.setAttribute("tareas", tareas);
@@ -47,6 +60,7 @@ public class ListarTareasEstudiante extends HttpServlet {
 	}
 
 	/**
+	 * Se define el método post referenciando al método Get, lo que en otras palabras significa que realizan lo mismo los dos métodos.
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

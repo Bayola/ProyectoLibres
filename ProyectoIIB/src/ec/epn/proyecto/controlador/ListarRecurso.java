@@ -1,9 +1,11 @@
 package ec.epn.proyecto.controlador;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,26 +13,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
-import ec.epn.proyecto.modelo.Estudiante;
+import ec.epn.proyecto.modelo.Recurso;
 
 /**
- * Implementacion del Servlet EliminarEstudiante
+ * Servlet implementation class ListarLibros
  */
 @Transactional
-@WebServlet("/EliminarEstudiante")
-public class EliminarEstudiante extends HttpServlet {
+@WebServlet("/ListarRecurso")
+public class ListarRecurso extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	/**
-	 * A continuación se indica el nombre de la unidad de persistencia en la que se 
-	 * especifican los parámetros de configuración de la conexión con la base de datos
-	 */
+ 
 	@PersistenceContext(unitName = "adminlibrosPU")
 	private EntityManager em;
     /**
-     * Constructor del Servlet Eliminar Estudiante.
      * @see HttpServlet#HttpServlet()
      */
-    public EliminarEstudiante() {
+    public ListarRecurso() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,24 +37,13 @@ public class EliminarEstudiante extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/**
-		 * Instanciamos una vairable id, para obtener la id del estudiante el cual vamos a eliminar sus datos.
-		 */
-		String idStr= request.getParameter("id");
-		/**
-		 * Hacemos una busqueda del id en la base para obtener los datos relacionados con dicho id.
-		 */
-		Estudiante e = em.find(Estudiante.class, new Integer(idStr));
-		/**
-		 * Con ayuda del revome podemos eliminar los registros  
-		 * de algun estudiante seleccionado en la base de datos.
-		 */
-			em.remove(e);
-			/**
-			 * Hacemos un direccionamiento a un servlet ListarEstudiantes una vez que la 
-			 * eliminación de datos fue completado con exito.
-			 */
-		request.getRequestDispatcher("ListarEstudiantes").forward(request, response);
+		Query q= em.createQuery("select t from Recurso as t", Recurso.class);
+		//System.out.println("*****************************************"+q);
+		List<Recurso> recursos=q.getResultList();
+		
+		request.setAttribute("recursos", recursos);
+		request.getRequestDispatcher("listarRecurso.jsp").forward(request, response);
+		
 	}
 
 	/**

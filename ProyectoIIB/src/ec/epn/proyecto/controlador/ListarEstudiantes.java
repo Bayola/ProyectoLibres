@@ -16,15 +16,20 @@ import javax.transaction.Transactional;
 import ec.epn.proyecto.modelo.Estudiante;
 
 /**
- * Servlet implementation class ListarEstudiantes
+ * Implementacion del Servlet ListarEstudiantes
  */
 @Transactional
 @WebServlet("/ListarEstudiantes")
 public class ListarEstudiantes extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	/**
+	 * A continuación se indica el nombre de la unidad de persistencia en la que se 
+	 * especifican los parámetros de configuración de la conexión con la base de datos
+	 */
 	@PersistenceContext(unitName = "adminlibrosPU")
 	private EntityManager em;
     /**
+     * Constructor del Servlet Listar Estudiante.
      * @see HttpServlet#HttpServlet()
      */
     public ListarEstudiantes() {
@@ -36,10 +41,23 @@ public class ListarEstudiantes extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		/**
+		 *  Instanciamos un Query para poder leer objetos desde la base de datos.
+		 */
 		Query q= em.createQuery("select e from Estudiante as e", Estudiante.class);
+		/**
+		 * Hacemos un mapeo de la consulta usando una lista.
+		 */
 		List<Estudiante> estudiante=q.getResultList();
-		
+		/**
+		 * Acontinuación la siguiente linea se utiliza para establecer 
+		 * un atributo estudiante para una solicitud en el servlet.
+		 */
 		request.setAttribute("estudiante", estudiante);
+		/**
+		 * Hacemos un direccionamiento a una jsp listar estudiantes, 
+		 * para revisar todos los estudiantes registrados.
+		 */
 		request.getRequestDispatcher("listarEstudiantes.jsp").forward(request, response);
 	
 	}

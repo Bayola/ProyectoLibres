@@ -15,7 +15,16 @@ package ec.epn.proyecto.modelo;
 	import javax.persistence.GenerationType;
 	import javax.persistence.Id;
 import javax.persistence.Table;
-
+/**
+ * Esta clase permite crear elementos de tipo tarea.
+ * Cuyos campos son:  
+ * Id, titulo, descripcion, entrega, calificacion, entregado.
+ * Siendo el id de tipo Integer autoincrementable
+ * Los campos titulo, descripcion y entrega de tipo String
+ * Los campos calificacion de tipo Integer y entregado de tipo Boolean
+ * @version 1.0, 14/09/2020
+ * @author Gabriela Talavera
+ */
 	@Entity
 	public class Tarea {
 		@Id

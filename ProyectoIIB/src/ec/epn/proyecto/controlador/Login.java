@@ -16,56 +16,77 @@ import javax.transaction.Transactional;
 import ec.epn.proyecto.modelo.Administrador;
 import ec.epn.proyecto.modelo.Estudiante;
 import ec.epn.proyecto.modelo.Profesor;
+
+import ec.epn.proyecto.modelo.Tarea;
+
 /**
- * Servlet implementation class Login
+ * Implementacion del Servlet Login
  */
 @Transactional
 @WebServlet("/Login")
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	/**
+	 * A continuación se indica el nombre de la unidad de persistencia en la que se 
+	 * especifican los parámetros de configuración de la conexión con la base de datos
+	 */
 	@PersistenceContext(unitName = "adminlibrosPU")
 	private EntityManager em;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Login() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * Constructor del Servlet Login.
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String modo = request.getParameter("Modalidad");
-		switch (modo) {
-			case "Estudiante":
-				Query q= em.createQuery("select e from Estudiante as e", Estudiante.class);
-				List<Estudiante> Estudiante=q.getResultList();
-				request.setAttribute("estudiante", Estudiante);
-				break;
-			case "Profesor":
-				Query q1= em.createQuery("select p from Profesor as p", Profesor.class);
-				List<Profesor> Profesor=q1.getResultList();
-				request.setAttribute("estudiante", Profesor);
-				break;
-			case "Administrador":
-				Query q2= em.createQuery("select a from Administrador as a", Administrador.class);
-				List<Profesor> Administrador=q2.getResultList();
-				request.setAttribute("estudiante", Administrador);
-				break;
-			default:
-				break;
-		}
-
-		request.getRequestDispatcher("Login.jsp").forward(request, response);
+	public Login() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		/**
+		 * Imprimimos el datos que nos esta llegando de la variable de nombre tipo
+		 */
+		System.out.println(request.getParameter("tipo"));
+		/**
+		 * Instanciamos una variable modo que nos permitira recupera un parámetro de la request
+		 */
+		String modo = request.getParameter("tipo");
+		
+		/**
+		 * Acontinuacion verificaremos que modalidad se ha selecciona, 
+		 * para redireccionar las pantallas pertinentes de acuerdo a dicha modalidad.
+		 */
+		String cedula = request.getParameter("cedula");
+		String password = request.getParameter("password");
+		
+		if(cedula.equals("") || password.equals("")) {
+			request.getRequestDispatcher("errorLogin.jsp").forward(request, response);
+		}else {	
+		if (modo.equals("Estudiante")) {
+			request.getRequestDispatcher("cursos.jsp").forward(request, response);
+		} if (modo.equals("Profesor")) {
+			request.getRequestDispatcher("menuProfesor.jsp").forward(request, response);
+		} if(modo.equals("Administrador")) {
+			request.getRequestDispatcher("menuAdministrador.jsp").forward(request, response);
+		}
+		else {
+			request.getRequestDispatcher("errorLogin.jsp").forward(request, response);
+		}
+		
+			request.getRequestDispatcher("errorLogin.jsp").forward(request, response);
+		}
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

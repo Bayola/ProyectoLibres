@@ -12,13 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
 import ec.epn.proyecto.modelo.Estudiante;
+import ec.epn.proyecto.modelo.Tarea;
 
 /**
- * Implementacion del Servlet EliminarEstudiante
+ * Implementacion del Servlet ActualizarEstudiante
  */
 @Transactional
-@WebServlet("/EliminarEstudiante")
-public class EliminarEstudiante extends HttpServlet {
+@WebServlet("/ActualizarEstudiante")
+public class ActualizarEstudiante extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	/**
 	 * A continuación se indica el nombre de la unidad de persistencia en la que se 
@@ -27,10 +28,10 @@ public class EliminarEstudiante extends HttpServlet {
 	@PersistenceContext(unitName = "adminlibrosPU")
 	private EntityManager em;
     /**
-     * Constructor del Servlet Eliminar Estudiante.
+     * Constructor del Servlet Actualizar Estudiante.
      * @see HttpServlet#HttpServlet()
      */
-    public EliminarEstudiante() {
+    public ActualizarEstudiante() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,22 +41,39 @@ public class EliminarEstudiante extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		/**
-		 * Instanciamos una vairable id, para obtener la id del estudiante el cual vamos a eliminar sus datos.
+		 * Instanciamos una vairable id, para obtener la id del estudiante el cual vamos a actualizar sus datos.
 		 */
-		String idStr= request.getParameter("id");
+		String id= request.getParameter("id");
 		/**
 		 * Hacemos una busqueda del id en la base para obtener los datos relacionados con dicho id.
 		 */
-		Estudiante e = em.find(Estudiante.class, new Integer(idStr));
+		Estudiante e = em.find(Estudiante.class, new Integer(id));
 		/**
-		 * Con ayuda del revome podemos eliminar los registros  
-		 * de algun estudiante seleccionado en la base de datos.
+		 * Instanciamos variables para obtener los datos que espera el servlet.
 		 */
-			em.remove(e);
-			/**
-			 * Hacemos un direccionamiento a un servlet ListarEstudiantes una vez que la 
-			 * eliminación de datos fue completado con exito.
-			 */
+		String nombre = (String) request.getParameter("nombre");
+		String apellido = (String)request.getParameter("apellido");
+		String telefono = (String)request.getParameter("telefono");
+		String correo = (String)request.getParameter("correo");
+		/**
+		 * Si los campos de la actulización del estudiante fueron llenados
+		 * podremos guardar esos datos en nuestra base de datos.
+		 */
+		e.setNombre(nombre);
+		e.setApellido(apellido);
+		e.setTelefono(telefono);
+		e.setCorreo(correo);
+		
+		/**
+		 * Con ayuda del persist podemos insertar los registros actualizados 
+		 * de los estudiantes en la base de datos.
+		 */
+		em.persist(e);
+		
+		/**
+		 * Hacemos un direccionamiento a una jsp una vez que la 
+		 * actualización de datos fue completado con exito.
+		 */
 		request.getRequestDispatcher("ListarEstudiantes").forward(request, response);
 	}
 

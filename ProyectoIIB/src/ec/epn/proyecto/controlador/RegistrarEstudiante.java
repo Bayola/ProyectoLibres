@@ -14,16 +14,21 @@ import javax.transaction.Transactional;
 import ec.epn.proyecto.modelo.Estudiante;
 
 /**
- * Servlet implementation class RegistrarEstudiante
+ * Implementacion del Servlet RegistrarEstudiante
  */
 @Transactional
 @WebServlet("/RegistrarEstudiante")
 public class RegistrarEstudiante extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	/**
+	 * A continuación se indica el nombre de la unidad de persistencia en la que se 
+	 * especifican los parámetros de configuración de la conexión con la base de datos
+	 */
 	@PersistenceContext(unitName = "adminlibrosPU")
 	private EntityManager em;
 
     /**
+     * Constructor del Servlet Registrar Estudiante.
      * @see HttpServlet#HttpServlet()
      */
     public RegistrarEstudiante() {
@@ -35,13 +40,19 @@ public class RegistrarEstudiante extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		/**
+		 * Instanciamos variables para obtener los datos que espera el servlet
+		 */
 		String nombre = request.getParameter("nombre");
 		String apellido = request.getParameter("apellido");
 		String cedula = request.getParameter("cedula");
 		String telefono = request.getParameter("telefono");
 		String correo = request.getParameter("correo");
 		String password = request.getParameter("password");
-		
+		/**
+		 * Verificamos si los campos en el registroEstudiantes.jsp fueron llenados, 
+		 * caso contrario se notificará con un mensaje "Todos los campos son obligatorios".
+		 */
 		if (nombre.equals("") || apellido.equals("") || cedula.equals("") || telefono.equals("") || correo.equals("") || password.equals("")) {
 			request.setAttribute("valNombre", nombre);
 			request.setAttribute("valApellido", apellido);
@@ -50,10 +61,17 @@ public class RegistrarEstudiante extends HttpServlet {
 			request.setAttribute("valCorreo", correo);
 			request.setAttribute("valPassword", password);
 			request.setAttribute("valError", "Todos los campos son obligatorios");
-
+			
+			/**
+			 * hacemos un direccionamiento al jsp de registro, para que se vuelva a llenar
+			 * los campos.
+			 */
 			request.getRequestDispatcher("registroEstudiante.jsp").forward(request, response);
 		} else {
-			
+			/**
+			 * Si los campos en el registro del estudiante fueron llenados
+			 * podremos guardar esos datos en la base de datos.
+			 */
 			Estudiante e = new Estudiante();
 			e.setNombre(nombre);
 			e.setApellido(apellido);
@@ -62,8 +80,16 @@ public class RegistrarEstudiante extends HttpServlet {
 			e.setCorreo(correo);
 			e.setPassword(password);			
 			
+			/**
+			 * Con ayuda del persist podemos insertar los registros de los
+			 * estudiantes en la base de datos
+			 */
 			em.persist(e);
 			
+			/**
+			 * Hacemos un direccionamiento a una jsp una vez que el 
+			 * registro fue completado con exito
+			 */
 			request.getRequestDispatcher("registroEstudianteExitoso.jsp").forward(request, response);
 		}
 	}

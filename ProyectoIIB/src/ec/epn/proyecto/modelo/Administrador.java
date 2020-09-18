@@ -5,19 +5,34 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+/**
+ * Definimos la clase Administrador nos ayuda a manipular los datos 
+ * en la base de datos, asi definimos esta clase como Entity.
+ * @author emi_m
+ *
+ */
 @Entity
 public class Administrador {
+	/**
+	 * Definimos la variable Id como autoincrementable.
+	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	/**
+	 * Definimos las variables de las columnas que tiene la base de datos Administrador.
+	 */
 	@Column
 	private String nombre;
 	@Column
 	private String cedula;
 	@Column
 	private String password;
-	
+	/**
+	 * Generamos los getters and setters para establecer o devolver el valor 
+	 * de las variables definidas en la clase Administrador.
+	 * @return
+	 */
 	public Integer getId() {
 		return id;
 	}

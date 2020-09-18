@@ -16,13 +16,20 @@ import javax.transaction.Transactional;
 import ec.epn.proyecto.modelo.Tarea;
 
 /**
- * Servlet implementation class ActualizarTarea
+ * Implementacion de la Servlet class ActualizarTareaProfesor
+ * @version 1.0, 14/09/2020
+ * @author Gabby
+ * 
  */
 @Transactional
 @WebServlet("/ActualizarTareaProfesor")
 public class ActualizarTareaProfesor extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    
+	/**
+	 * Se indica el nombre de la unidad de persistencia en la que se 
+	 * especifican los parámetros de configuración de la conexión con la base de datos
+	 * Notese que se ha reutilizado el proyecto de administracion de libros
+	 */
 	@PersistenceContext(unitName = "adminlibrosPU")
 	private EntityManager em;
     /**
@@ -32,18 +39,28 @@ public class ActualizarTareaProfesor extends HttpServlet {
         super();
     }
 
-	/**
+    /**
+	 * Se define el método get para que se permita obtener los datos de la servlet EditarTareaEstudiante cuyo id y demás datos se reciben como parámetros
+	 * editarlos y enviarlos hacia la base de datos, posteriromente de redirige hacia la Servlet ListarTareasEstudiante.
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */ 
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		/**
+		 * Se obtiene el parametro id, con el fin de realizar una busqueda por id en la base de datos
+		 * especificamente en la tabla tarea
+		 * */
 		String idStr= request.getParameter("id");
 		Tarea t= em.find(Tarea.class, new Integer(request.getParameter("id")));
-		
+		/**
+		 * Se obtienen los valores de los parametros
+		 */
 		String titulo = (String) request.getParameter("titulo");
 		String descripcion = (String)request.getParameter("descripcion");
 		String calificacion = (String) request.getParameter("calificacion");
 		String entrega = (String) request.getParameter("entrega");
-
+		/**
+		 * Se verifica que si no se ha realizado entrega, se setean los datos hacia la base del campo entregado como false
+		 * */
 		if(entrega.equals("no entregado")) {
 			t.setTitulo(titulo);
 			t.setDescripcion(descripcion);
@@ -51,18 +68,25 @@ public class ActualizarTareaProfesor extends HttpServlet {
 			t.setEntregado(false);
 			t.setEntrega(entrega);
 			request.getRequestDispatcher("ListarTareasProfesor").forward(request, response);
+			/**
+			 * Caso contrario, se setean los datos hacia la base del campo entregado como false
+			 * */
 		}else {
 		t.setTitulo(titulo);
 		t.setDescripcion(descripcion);
 		t.setCalificacion(new Integer(calificacion));
 		t.setEntregado(true);
 		t.setEntrega(entrega);
-		
+		/**
+		 * Finalmente se realiza la persistencia de los datos de la tarea, haciendo constancia de la operacion en la base de datos
+		 * Se envia la informacion y se redirige hacia ListarTareasProfesor
+		 */
 		request.getRequestDispatcher("ListarTareasProfesor").forward(request, response);
 		}
 	}
 
 	/**
+	 * Se define el método post referenciando al método Get, lo que en otras palabras significa que realizan lo mismo los dos métodos.
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
